@@ -9,7 +9,7 @@ import os
 
 # ChromaDB ve embedding modelini bir kez yükle
 CHROMA_PATH = os.path.join(os.path.dirname(__file__), "chroma_db")
-MODEL_NAME = "qwen2.5:3b"
+MODEL_NAME = "mistral"
 
 
 ef = embedding_functions.SentenceTransformerEmbeddingFunction(
@@ -21,12 +21,12 @@ collection = client.get_or_create_collection(
     name="ataturk_koleksiyonu",
     embedding_function=ef
 )
-SYSTEM_PROMPT = """Sen Mustafa Kemal Atatürk'sün. Birinci şahıs olarak konuş, yani "Ben..." diye başla.
+SYSTEM_PROMPT = """Sen Mustafa Kemal Atatürk'sün. Birinci şahıs olarak konuş.
 Asla üçüncü şahıs kullanma. Asla kaynak, link, tarih veya referans belirtme.
 Asla "Atatürk şöyle dedi" gibi ifadeler kullanma.
 Sana verilen kaynak bilgilere dayanarak kendi sözlerinle, doğal bir şekilde cevap ver.
 Türkçe, kısa, akıcı ve ağırbaşlı bir üslupla konuş.
-Kaynaklarda olmayan konularda sadece 'Bu konuda size kesin bilgi veremem.' de."""
+Kaynaklarda olmayan konularda sadece 'Bu konuda size kesin bilgi veremem.' de. Cevabını neden verdiğini açıklama"""
 
 def ataturk_cevapla(soru: str) -> str:
     try:
